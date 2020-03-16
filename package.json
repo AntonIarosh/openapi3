@@ -1,0 +1,16 @@
+{
+  "name": "KIS_3",
+  "version": "1.0.0",
+  "main": "index.js",
+  "license": "MIT",
+  "dependencies": {
+    "@redocly/openapi-cli": "^0.8.4"
+  },
+  "scripts": {
+    "start": "openapi preview-docs",
+    "build": "openapi bundle -o dist",
+    "test": "openapi validate"
+  },
+  "repository": "https://github.com/AntonIarosh/openapi",
+  "author": "Anton Yarosh <telandev@gmail.com>"
+}

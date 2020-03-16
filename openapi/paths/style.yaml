@@ -1,0 +1,38 @@
+get:
+    summary: "Все стили - жанры книг"
+    description: "Query to all styles  and Recive all genre of books"
+    tags: ["Styles"] 
+    responses:
+        '200':
+            description: "Successful response"
+            content:
+                application/json:
+                    schema:
+                        title: Style type
+                        type: object
+                        properties:
+                            Styles:
+                                title: List of books
+                                type: object
+                                properties:
+                                    id:
+                                        type: integer
+                                        format: int64
+                                    name:
+                                        type: string
+                                        format: string
+                                    parent_id:
+                                        type: integer
+                                        format: int64
+                                required:
+                                    - id
+                                    - name
+                                    - parent_id
+        '404':
+            description: Not found response
+            content:
+                text/plain:
+                    schema:
+                        type: string
+                        example: Not found
+        

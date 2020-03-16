@@ -1,0 +1,41 @@
+openapi: 3.0.0
+info:
+  version: '1.0'
+  title: REST API
+  contact:
+    name: Ваше имя
+    email: и почта
+servers:
+  - url: 'https://example.com/v1.0'
+    description: Live Server
+tags:
+  - name: Раздел
+    description: |
+      Описание раздела
+      в несколько
+      строк
+security:
+  - SecretApiKey: []
+  - JWT: []
+paths:
+  /publishing_house/:
+    $ref: ./paths/publishing.yaml 
+  /author_books/{id}:
+    $ref: ./paths/author.yaml
+  /cover_style/:
+    $ref: ./paths/style.yaml
+  /publishing_house_this_book/{id}:
+    $ref: ./paths/publishing_book.yaml 
+  /style_book/{id}:
+    $ref: ./paths/style_book.yaml
+  /registration/:
+    $ref: ./paths/registration.yaml
+  /my_boscet/{id}:
+    $ref: ./paths/bascet.yaml
+
+
+
+
+
+
+

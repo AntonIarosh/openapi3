@@ -1,0 +1,432 @@
+openapi: 3.0.0
+info:
+  version: '1.0'
+  title: REST API
+  contact:
+    name: Ваше имя
+    email: и почта
+servers:
+  - url: 'https://example.com/v1.0'
+    description: Live Server
+tags:
+  - name: Раздел
+    description: |
+      Описание раздела
+      в несколько
+      строк
+security:
+  - SecretApiKey: []
+  - JWT: []
+paths:
+  /publishing_house/:
+    get:
+      summary: Все издательства
+      description: Query to all publishing_house
+      tags:
+        - Publishing_House
+      responses:
+        '200':
+          description: Successful response
+          content:
+            application/json:
+              schema:
+                type: object
+                title: One publishing house
+                properties:
+                  House:
+                    title: House type
+                    type: object
+                    properties:
+                      id:
+                        type: integer
+                        format: int64
+                      name:
+                        type: string
+                        format: string
+                    required:
+                      - id
+                      - name
+        '400':
+          description: Bad request
+          content:
+            text/plain:
+              schema:
+                properties:
+                  errors:
+                    type: object
+                    properties:
+                      error:
+                        type: string
+                        example: You have bad request
+        '404':
+          description: Not found response
+          content:
+            text/plain:
+              schema:
+                type: string
+                example: Not found
+  '/author_books/{id}':
+    post:
+      summary: Все книги указанного автора
+      description: Recive all books of this author
+      responses:
+        '200':
+          description: Successful response
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  Books:
+                    title: List of books
+                    type: object
+                    properties:
+                      id:
+                        type: integer
+                        format: int64
+                      author_id:
+                        type: integer
+                        format: int64
+                      style_id:
+                        type: integer
+                        format: int64
+                      name:
+                        type: string
+                        format: string
+                      number_pages:
+                        type: integer
+                        format: int64
+                      Id_publishing_house:
+                        type: integer
+                        format: int64
+                      date_publishing:
+                        type: string
+                        format: sql_date
+                      type_cover:
+                        type: string
+                        format: string
+                      mark:
+                        type: integer
+                        format: int64
+                      prace:
+                        type: number
+                        format: double
+                    required:
+                      - id
+                      - author_id
+                      - style_id
+                      - name
+                      - number_pages
+                      - Id_publishing_house
+                      - date_publishing
+                      - Id_type_cover
+                      - mark
+                      - prace
+        '404':
+          description: Not found response
+          content:
+            text/plain:
+              schema:
+                type: string
+                example: Not found
+  /cover_style/:
+    get:
+      summary: Все стили - жанры книг
+      description: Query to all styles  and Recive all genre of books
+      tags:
+        - Styles
+      responses:
+        '200':
+          description: Successful response
+          content:
+            application/json:
+              schema:
+                title: Style type
+                type: object
+                properties:
+                  Styles:
+                    title: List of books
+                    type: object
+                    properties:
+                      id:
+                        type: integer
+                        format: int64
+                      name:
+                        type: string
+                        format: string
+                      parent_id:
+                        type: integer
+                        format: int64
+                    required:
+                      - id
+                      - name
+                      - parent_id
+        '404':
+          description: Not found response
+          content:
+            text/plain:
+              schema:
+                type: string
+                example: Not found
+  '/publishing_house_this_book/{id}':
+    post:
+      summary: Стиль данной книги
+      description: Recive publishing house of thik book
+      tags:
+        - Publishing_House of book
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                publishingId:
+                  type: integer
+                  format: int64
+      responses:
+        '200':
+          description: Successful response
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  Publishing_house:
+                    title: About this publishing house
+                    type: object
+                    properties:
+                      id:
+                        type: integer
+                        format: int64
+                      name:
+                        type: string
+                        format: string
+                    required:
+                      - id
+                      - name
+        '400':
+          description: Bad request
+          content:
+            text/plain:
+              schema:
+                properties:
+                  errors:
+                    type: object
+                    properties:
+                      error:
+                        type: string
+                        example: You have bad request
+        '404':
+          description: Not found response
+          content:
+            text/plain:
+              schema:
+                type: string
+                example: Not found
+  '/style_book/{id}':
+    post:
+      summary: стиль данной книги
+      description: Recive style of thik book
+      tags:
+        - Style of book
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                styleId:
+                  type: integer
+                  format: int64
+      responses:
+        '200':
+          description: Successful response
+          content:
+            application/json:
+              schema:
+                type: object
+                title: About this style
+                properties:
+                  id:
+                    type: integer
+                    format: int64
+                  name:
+                    type: string
+                    format: string
+                  parent_id:
+                    type: integer
+                    format: int64
+                required:
+                  - id
+                  - name
+                  - parent_id
+        '400':
+          description: Bad request
+          content:
+            text/plain:
+              schema:
+                properties:
+                  errors:
+                    type: object
+                    properties:
+                      error:
+                        type: string
+                        example: You have bad request
+        '404':
+          description: Not found response
+          content:
+            text/plain:
+              schema:
+                type: string
+                example: Not found
+  /registration/:
+    post:
+      summary: Регистрация пользователя
+      description: Registration user on syte
+      tags:
+        - User
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                userId:
+                  type: integer
+                  format: int64
+                userEmail:
+                  type: string
+                  format: string
+                password:
+                  type: string
+                  format: string
+                name:
+                  type: string
+                  format: string
+                adress_delivery:
+                  type: string
+                  format: string
+                telephone:
+                  type: string
+                  format: string
+                date_of_birth:
+                  type: string
+                  format: string
+      responses:
+        '200':
+          description: Successful response
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  User:
+                    title: User Info
+                    type: object
+                    properties:
+                      Data:
+                        title: User data
+                        type: object
+                        properties:
+                          id:
+                            type: integer
+                            format: int64
+                          login:
+                            type: string
+                            format: string
+                          pasword:
+                            type: string
+                            format: string
+                          name:
+                            type: string
+                            format: string
+                          id_boscet:
+                            type: integer
+                            format: int64
+                          adress_delivery:
+                            type: string
+                            format: string
+                          date_of_birth:
+                            type: string
+                            format: sql_date
+                          telephone:
+                            type: string
+                            format: string
+                        required:
+                          - id
+                          - login
+                          - pasword
+                          - name
+                          - id_boscet
+                          - adress_delivery
+                          - telephone
+                          - date_of_birth
+  '/my_boscet/{id}':
+    post:
+      summary: Состояние корзины пользователя
+      description: Recive all books nt boscet
+      responses:
+        '200':
+          description: Successful response
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  User_bascet:
+                    title: List of books
+                    type: object
+                    properties:
+                      id:
+                        type: integer
+                        format: int64
+                      user_id:
+                        type: integer
+                        format: int64
+                      book_id:
+                        type: integer
+                        format: int64
+                      countati_of_book:
+                        type: integer
+                        format: int64
+                      total_cost:
+                        type: integer
+                        format: int64
+                      audio_book_id:
+                        type: integer
+                        format: int64
+                      date:
+                        type: string
+                        format: sql_date
+                      prace:
+                        type: number
+                        format: double
+                    required:
+                      - id
+                      - user_id
+                      - book_id
+                      - countati_of_book
+                      - date
+                      - prace
+                      - audio_book_id
+                      - total_cost
+        '400':
+          description: Bad request
+          content:
+            text/plain:
+              schema:
+                properties:
+                  errors:
+                    type: object
+                    properties:
+                      error:
+                        type: string
+                        example: You have bad request
+        '404':
+          description: Not found response
+          content:
+            text/plain:
+              schema:
+                type: string
+                example: Not found
+components: {}

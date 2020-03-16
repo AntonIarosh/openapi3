@@ -1,0 +1,63 @@
+post:
+    summary: "Все книги указанного автора"
+    description: Recive all books of this author
+    responses:
+        '200':
+            description: Successful response
+            content:
+                application/json:
+                    schema:
+                        type: object
+                        properties:
+                            Books:
+                                title: List of books
+                                type: object
+                                properties:
+                                    id:
+                                        type: integer
+                                        format: int64
+                                    author_id:
+                                        type: integer
+                                        format: int64
+                                    style_id:
+                                        type: integer
+                                        format: int64
+                                    name:
+                                        type: string
+                                        format: string
+                                    number_pages:
+                                        type: integer
+                                        format: int64
+                                    Id_publishing_house:
+                                        type: integer
+                                        format: int64
+                                    date_publishing:
+                                        type: string
+                                        format: sql_date
+                                    type_cover:
+                                        type: string
+                                        format: string
+                                    mark:
+                                        type: integer
+                                        format: int64
+                                    prace:
+                                        type: number
+                                        format: double
+                                required:
+                                    - id
+                                    - author_id
+                                    - style_id
+                                    - name
+                                    - number_pages
+                                    - Id_publishing_house
+                                    - date_publishing
+                                    - Id_type_cover
+                                    - mark
+                                    - prace
+        '404':
+            description: Not found response
+            content:
+                text/plain:
+                    schema:
+                        type: string
+                        example: Not found

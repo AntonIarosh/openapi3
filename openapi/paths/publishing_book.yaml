@@ -1,0 +1,53 @@
+post:
+    summary: "Стиль данной книги"
+    description: "Recive publishing house of thik book"
+    tags: ["Publishing_House of book"] 
+    requestBody:
+        content:
+            application/json:
+                schema:
+                    type: object
+                    properties:
+                        publishingId:
+                            type: integer
+                            format: int64
+    responses:
+        '200':
+            description: Successful response
+            content:
+                application/json:
+                    schema:
+                        type: object
+                        properties:
+                            Publishing_house:
+                                title: About this publishing house
+                                type: object
+                                properties:
+                                    id:
+                                        type: integer
+                                        format: int64
+                                    name:
+                                        type: string
+                                        format: string
+                                required:
+                                    - id
+                                    - name
+        '400':
+            description: 'Bad request'
+            content:
+                text/plain:
+                    schema:
+                        properties:
+                            errors:
+                                type: object
+                                properties:
+                                    error:
+                                        type: string
+                                        example: "You have bad request"
+        '404':
+            description: Not found response
+            content:
+                text/plain:
+                    schema:
+                        type: string
+                        example: Not found
